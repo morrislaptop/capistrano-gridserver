@@ -29,12 +29,12 @@ require 'capistrano/gridserver'
 
 `capistrano/gridserver` comes with 1 task:
 
-* gridserver:create_relative_symlink
+* gridserver:create_relative_symlinks
 
 To activate, simply hook the task to after the deploy:publishing hook (you may wish to do this per server so it is not hooked by default)
 
 ```ruby
-after 'deploy:publishing', 'gridserver:create_relative_symlink'
+after 'deploy:publishing', 'gridserver:create_relative_symlinks'
 ```
 
 ### Configuration
