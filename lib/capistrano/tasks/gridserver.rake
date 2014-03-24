@@ -8,25 +8,25 @@ namespace :gridserver do
 
       # Only change current symlink if NEW deploy
       unless release_path == current_path
-	      info "Removing absolute current symlink"
-	      execute "rm -d #{current_path}"
+        info "Removing absolute current symlink"
+        execute "rm -d #{current_path}"
 
-	      info "Creating relative current symlink"
-	      execute "cd #{fetch(:deploy_to)} && ln -s ./releases/#{File.basename release_path} current"
-	  end
+        info "Creating relative current symlink"
+        execute "cd #{fetch(:deploy_to)} && ln -s ./releases/#{File.basename release_path} current"
+      end
 
-	  # Always recreate the linked_dirs
-      info "Removing absolute linked_dirs"
+      # Always recreate the linked_dirs
+      info "Removing absolute linked_dirs and creating relative linked_dirs"
       next unless any? :linked_dirs
       on release_roles :all do
         fetch(:linked_dirs).each do |dir|
           target = release_path.join(dir)
           source = shared_path.join(dir)
-          source = source.relative_path_from(target)
+          relative = Pathname.new('../' * (dir.count('/') + 2)).join('shared').join(dir) # 2 for releases/timestamp
           if test "[ -d #{target} ]"
             execute :rm, '-rf', target
           end
-          execute :ln, '-s', source, target
+          execute :ln, '-s', relative, target
         end
       end
     end

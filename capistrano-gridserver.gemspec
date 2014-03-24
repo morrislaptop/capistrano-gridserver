@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'capistrano-gridserver'
-  spec.version       = '0.0.2'
+  spec.version       = '0.0.3'
   spec.authors       = ['Craig Morris']
   spec.email         = ['craig.michael.morris@gmail.com']
   spec.description   = %q{Fixes issues related to using Capistrano with MediaTemple's grid server}
